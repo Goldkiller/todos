@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todolist</title>
+    <link rel="stylesheet" href="https://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="page-group">
+            <div class="page page-current">
+                <!-- header--start -->
+                <header class="bar bar-nav">
+                    <a class="icon icon-star pull-left"></a>
+                    <a class="icon icon-edit pull-right" @click='submit=!submit'></a>
+                    <h1 class="title">todolist</h1>
+                </header>
+                <!-- header--end -->
+
+                <!-- content--start -->
+                <div class="content">
+                    <div v-show='submit'>
+                        <input type="text" v-model='addItem'>
+                        <button class="button" style="display: inline;vertical-align: middle" v-on:click='add()'>提交</button>
+                    </div>
+                    <div class="card" v-for='(todo,index) in newTodos' :key='todo.id'>
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                <p>{{todo.content}}</p>
+                                <div class="button-box">
+                                    <button class="button button-success" :class='[todo.f?"button-fill":""]' @click='todo.f=!todo.f'>
+                                        <i class="icon icon-check"></i>
+                                    </button>
+                                    <!-- 删除按钮 -->
+                                    <button class="button button-danger" @click='check(index)'>
+                                        <i class="icon icon-remove"></i> 
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content--end -->
+                <!-- footer -- start  -->
+                <ul class="footer-box">
+                    <li v-for='tabBar in tabBars' :key='tabBar.id' class="circle" :class='["circle-"+tabBar.style,type==tabBar.text?"circle-fill":""]' @click='type=tabBar.text'>
+                        {{tabBar.text}}
+                    </li>
+                </ul>
+                <!-- footer -- end  -->
+                <div class="mask-box" v-show="maskFlag" @click="maskFlag=!maskFlag">
+                    <div class="mask-bg"></div>
+                    <div class="mask-content">
+                        <p>您真的要删除吗</p>
+                        <button class="button button-primary button-fill pull-right" @click='confirm(activeIndex)'>确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script src="./js/index.js"></script>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+
+</html>
